@@ -31,4 +31,15 @@ class InventoryMapping:
 
     # Req 5.2
     def consume_recipe(self, recipe: Recipe) -> None:
-        pass
+        # Verifica se a receita pode ser consumida
+        if self.check_recipe_availability(recipe):
+            # Caso possa ser consumida, itera sobre cada
+            #  ingrediente e a quantidade necessária na receita
+            for ingredient, required_amount in recipe.items():
+                # Subtrai a quantidade necessária
+                #  de cada ingrediente do estoque
+                self.inventory[ingredient] -= required_amount
+        else:
+            # Caso a receita não possa ser consumida,
+            #  levanta uma exceção ValueError
+            raise ValueError("Recipe is not available for consumption.")
